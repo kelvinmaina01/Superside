@@ -65,10 +65,8 @@ To get started with the project locally:
     npm run build
     ```
 
-## 🌐 Deployment
-
-
-
 ---
+
+Built with ❤️ by the Superside Team.
 
 Built with ❤️ by the Superside Team.
