@@ -20,10 +20,10 @@ const languages = [
 ];
 
 const regions = [
-  { name: "Europe", count: "6 Languages", languages: "Spanish, French, German, Italian, Portuguese, and Russian" },
-  { name: "Asia", count: "4 Languages", languages: "Chinese, Japanese, Korean, and Arabic" },
-  { name: "India", count: "5 Languages", languages: "Hindi, Tamil, Malayalam, Telugu, and Kannada" },
-  { name: "Americas", count: "1 Language", languages: "English - serving global communication" },
+  { name: "Europe", count: "6 Languages", languages: "🇪🇸 Spanish, 🇫🇷 French, 🇩🇪 German, 🇮🇹 Italian, 🇵🇹 Portuguese, and 🇷🇺 Russian" },
+  { name: "Asia", count: "4 Languages", languages: "🇨🇳 Chinese, 🇯🇵 Japanese, 🇰🇷 Korean, and 🇸🇦 Arabic" },
+  { name: "India", count: "5 Languages", languages: "🇮🇳 Hindi, 🇮🇳 Tamil, 🇮🇳 Malayalam, 🇮🇳 Telugu, and 🇮🇳 Kannada" },
+  { name: "Americas", count: "1 Language", languages: "🇺🇸 English - serving global communication" },
 ];
 
 const Languages = () => {

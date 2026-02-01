@@ -10,7 +10,7 @@ const plans = [
     description: "Perfect for trying out WebClipInsights",
     features: [
       "5 screenshots per day",
-      "16 language support",
+      "🌍 16 language support",
       "Fast mode (Groq)",
       "Basic chat follow-ups",
       "Save highlights",
@@ -52,9 +52,8 @@ const Pricing = () => {
           {plans.map((plan, index) => (
             <Card
               key={index}
-              className={`relative ${
-                plan.popular ? "border-primary shadow-xl scale-105" : "border"
-              }`}
+              className={`relative ${plan.popular ? "border-primary shadow-xl scale-105" : "border"
+                }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">

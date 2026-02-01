@@ -18,7 +18,7 @@ const features = [
     icon: Globe,
     badge: "Multilingual AI",
     title: "16 Languages Supported",
-    description: "Advanced AI models analyze and summarize content in 16 languages including English, Tamil, Hindi, Malayalam, Telugu, Kannada, Spanish, French, German, Arabic, Chinese, Japanese, and more",
+    description: "Advanced AI models analyze and summarize content in 16 languages including 🇺🇸 English, 🇮🇳 Tamil, 🇮🇳 Hindi, 🇮🇳 Malayalam, 🇮🇳 Telugu, 🇮🇳 Kannada, 🇪🇸 Spanish, 🇫🇷 French, 🇩🇪 German, 🇸🇦 Arabic, 🇨🇳 Chinese, 🇯🇵 Japanese, and more",
   },
   {
     icon: Zap,
