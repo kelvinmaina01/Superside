@@ -2,9 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Chrome, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import SupersideLogo from "@/components/SupersideLogo";
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -19,8 +20,8 @@ const Login = () => {
 
         <Card className="border-0 shadow-xl">
           <CardHeader className="text-center">
-            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Chrome className="w-7 h-7 text-primary-foreground" />
+            <div className="w-12 h-12 mx-auto mb-4">
+              <SupersideLogo className="w-12 h-12" />
             </div>
             <CardTitle className="text-2xl">
               {isSignUp ? "Create an account" : "Welcome back"}

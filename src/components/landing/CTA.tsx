@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Chrome, Star, Users, Shield } from "lucide-react";
+import { Star, Users, Shield, Play } from "lucide-react";
+import SupersideLogo from "@/components/SupersideLogo";
 
 const CTA = () => {
   return (
@@ -28,10 +29,16 @@ const CTA = () => {
 
         <div className="bg-background/10 rounded-2xl p-8 backdrop-blur">
           <h3 className="text-xl font-semibold mb-6">Install the Extension</h3>
-          <Button size="lg" variant="secondary" className="gap-2 px-8 mb-6">
-            <Chrome className="w-5 h-5" />
-            Add to Chrome
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+            <Button size="lg" variant="secondary" className="gap-2 px-8">
+              <SupersideLogo className="w-5 h-5" />
+              Add to Chrome
+            </Button>
+            <Button size="lg" variant="outline" className="gap-2 px-8 bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10">
+              <Play className="w-5 h-5" />
+              Watch Demo
+            </Button>
+          </div>
           <p className="text-sm opacity-80">
             Compatible with Chrome 88+ • Free Forever • No Account Required
           </p>

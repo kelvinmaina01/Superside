@@ -13,7 +13,6 @@ import {
   Maximize2,
   Minimize2,
   Send,
-  Chrome,
   ChevronRight
 } from "lucide-react";
 import { useState } from "react";
@@ -21,6 +20,7 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import SupersideLogo from "@/components/SupersideLogo";
 
 const mockHighlights = [
   {
@@ -62,10 +62,8 @@ const Dashboard = () => {
       <header className="bg-background border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Chrome className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="font-bold">WebClipInsights</span>
+            <SupersideLogo className="w-8 h-8" />
+            <span className="font-bold">Superside</span>
           </Link>
 
           <div className="flex items-center gap-4">
