@@ -33,44 +33,41 @@ const CTA = () => {
           </div>
         </div>
 
-        <div className="bg-background/10 rounded-2xl p-8 backdrop-blur">
-          <h3 className="text-xl font-semibold mb-6">Install the Extension</h3>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-            <Button size="lg" variant="secondary" className="gap-2 px-8">
-              <SupersideLogo className="w-5 h-5" />
+        <div className="bg-[#020617]/40 rounded-[2rem] p-8 md:p-12 backdrop-blur-xl border border-white/10 shadow-inner group overflow-hidden relative">
+          {/* Subtle Decorative Glow */}
+          <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-[80px]" />
+
+          <h3 className="text-2xl font-bold mb-8 tracking-tight">Install the Extension</h3>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+            <Button size="lg" variant="secondary" className="gap-2 px-10 h-14 text-lg font-bold shadow-lg hover:scale-105 transition-transform">
+              <SupersideLogo className="w-6 h-6" />
               Add to Chrome
             </Button>
-            <Button size="lg" variant="outline" className="gap-2 px-8 bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10">
-              <Play className="w-5 h-5" />
+            <Button size="lg" variant="outline" className="gap-2 px-10 h-14 text-lg font-bold bg-white/5 border-white/20 hover:bg-white/10 hover:border-white/40 transition-all">
+              <Play className="w-5 h-5 fill-current" />
               Watch Demo
             </Button>
           </div>
-          <p className="text-sm opacity-90 font-medium">
-            Free Plan ($0/forever) • Premium Plan ($15/month)
-          </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-8 text-left">
-            <div className="flex gap-3">
-              <span className="w-8 h-8 rounded-full bg-background/20 flex items-center justify-center flex-shrink-0">1</span>
-              <div>
-                <h4 className="font-medium">Click "Add to Chrome"</h4>
-                <p className="text-sm opacity-80">You'll be redirected to the Chrome Web Store</p>
+          <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-semibold mb-12">
+            Free Plan ($0/forever) • Premium Plan ($15/month)
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 text-left">
+            {[
+              { step: "1", title: "Add to Chrome", desc: "Redirect to the official Chrome Web Store" },
+              { step: "2", title: "Install Now", desc: "Confirm the installation in your browser" },
+              { step: "3", title: "Summarize", desc: "Select any text or area to get instant AI summaries" },
+            ].map((item, i) => (
+              <div key={i} className="relative p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group/step">
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center font-black mb-4 shadow-lg shadow-primary/20 group-hover/step:scale-110 transition-transform">
+                  {item.step}
+                </div>
+                <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                <p className="text-sm opacity-70 leading-relaxed">{item.desc}</p>
               </div>
-            </div>
-            <div className="flex gap-3">
-              <span className="w-8 h-8 rounded-full bg-background/20 flex items-center justify-center flex-shrink-0">2</span>
-              <div>
-                <h4 className="font-medium">Install Extension</h4>
-                <p className="text-sm opacity-80">Click "Add to Chrome" and confirm installation</p>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              <span className="w-8 h-8 rounded-full bg-background/20 flex items-center justify-center flex-shrink-0">3</span>
-              <div>
-                <h4 className="font-medium">Start Summarizing</h4>
-                <p className="text-sm opacity-80">Select any content on any webpage and get AI summaries</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
