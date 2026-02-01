@@ -69,8 +69,8 @@ const IntegratedTools = () => {
                 key={`${tool.name}-${index}`}
                 className="flex items-center gap-4 mx-12 flex-shrink-0"
               >
-                <div className="w-12 h-12 rounded-xl bg-card border flex items-center justify-center shadow-sm text-primary transition-colors group-hover:bg-accent">
-                  {tool.logo}
+                <div className="w-12 h-12 rounded-xl bg-white border flex items-center justify-center shadow-md p-2 overflow-hidden group-hover:bg-accent transition-colors">
+                  <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
                 </div>
                 <span className="text-xl font-semibold text-foreground/80 whitespace-nowrap">
                   {tool.name}
