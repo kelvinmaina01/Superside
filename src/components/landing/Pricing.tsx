@@ -45,6 +45,7 @@ const plans = [
 ];
 
 const Pricing = () => {
+  const navigate = useNavigate();
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
   const handleStripeCheckout = async (planId: string) => {
@@ -55,8 +56,8 @@ const Pricing = () => {
 
     setTimeout(() => {
       setLoadingId(null);
-      alert("Stripe Checkout redirect simulation. In production, this would open the Stripe checkout page.");
-    }, 1500);
+      navigate(`/checkout?plan=${planId}`);
+    }, 800);
   };
 
   return (
