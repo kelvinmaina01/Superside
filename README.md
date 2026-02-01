@@ -1,73 +1,74 @@
-# Welcome to your Lovable project
+# 🚀 Superside: Smart Summaries In Seconds
 
-## Project info
+**Superside** is an AI-powered Chrome extension designed to revolutionize how you consume web content. Capture any area of a webpage and get instant, accurate summaries and insights in over 16 languages.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![Superside Hero](./public/screenshots/hero.png)
 
-## How can I edit this code?
+## ✨ Key Features
 
-There are several ways of editing your application.
+- **📸 Smart Snap Tool**: Select any area of a webpage—perfect for quizzes, articles, and complex visual content.
+- **🧠 AI Detection**: Automatically identifies quiz questions and Q&A content, providing instant answers with detailed explanations.
+- **🌍 Multilingual Power**: Advanced support for 16+ languages, including English, Tamil, Hindi, Malayalam, Telugu, Kannada, Spanish, French, German, Arabic, Chinese, Japanese, and more.
+- **⚡ Lightning Fast**: Get comprehensive summaries in under 3 seconds.
+- **🛡️ Privacy First**: Secure processing with a focus on data protection.
+- **💬 Interactive AI Chat**: Dive deeper into any topic by starting a conversation with our integrated AI models.
 
-**Use Lovable**
+## 🛠️ Integrated With
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Superside leverages the power of industry-leading AI models:
+- **Groq** & **DeepSeek** (Fast & Thinking modes)
+- **ChatGPT**, **Gemini**, **Claude**
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 How It Works
 
-**Use your preferred IDE**
+![How It Works](./public/screenshots/cta.png)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1.  **Add to Chrome**: Install the extension from the Chrome Web Store.
+2.  **Select & Capture**: Use the snap tool to select any content on your screen.
+3.  **AI Analysis**: Our models process the content instantly.
+4.  **Learn & Grow**: Receive clear, concise summaries and insights.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 💻 Tech Stack
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- **Frontend**: React, TypeScript, Vite
+- **UI Components**: shadcn/ui, Radix UI, Lucide Icons
+- **Styling**: Tailwind CSS, CSS Animations
+- **State Management**: TanStack Query (React Query)
+- **Routing**: React Router DOM
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🛠️ Local Development
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+To get started with the project locally:
 
-**Edit a file directly in GitHub**
+1.  **Clone the repository**:
+    ```sh
+    git clone <your-repo-url>
+    cd snap-learn-ai
+    ```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+2.  **Install dependencies**:
+    ```sh
+    npm install
+    ```
 
-**Use GitHub Codespaces**
+3.  **Run the development server**:
+    ```sh
+    npm run dev
+    ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+4.  **Build for production**:
+    ```sh
+    npm run build
+    ```
 
-## What technologies are used for this project?
+## 🌐 Deployment
 
-This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Built with ❤️ by the Superside Team.
