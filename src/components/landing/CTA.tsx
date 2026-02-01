@@ -41,7 +41,7 @@ const CTA = () => {
               <SupersideLogo className="w-6 h-6" />
               Add to Chrome
             </Button>
-            <Button size="lg" variant="outline" className="gap-2 px-10 h-14 text-lg font-bold border-slate-200 hover:bg-slate-50 transition-all text-slate-700">
+            <Button size="lg" variant="outline" className="gap-2 px-10 h-14 text-lg font-bold border-slate-900 bg-slate-900 text-white hover:bg-slate-50 hover:text-black transition-all">
               <Play className="w-5 h-5 fill-current" />
               Watch Demo
             </Button>
