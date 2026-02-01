@@ -5,7 +5,7 @@ import SupersideLogo from "@/components/SupersideLogo";
 const CTA = () => {
   return (
     <section className="py-20 px-4">
-      <div className="container mx-auto text-center max-w-4xl bg-primary text-primary-foreground rounded-3xl p-12 md:p-16 shadow-2xl">
+      <div className="container mx-auto text-center max-w-5xl bg-primary text-primary-foreground rounded-3xl p-12 md:p-16 shadow-2xl">
         <h2 className="text-3xl md:text-5xl font-bold mb-4">Ready to Get Started?</h2>
         <p className="text-xl opacity-90 mb-8">Join Thousands of Users</p>
         <p className="opacity-80 mb-8">
@@ -39,8 +39,8 @@ const CTA = () => {
               Watch Demo
             </Button>
           </div>
-          <p className="text-sm opacity-80">
-            Compatible with Chrome 88+ • Free Forever • No Account Required
+          <p className="text-sm opacity-90 font-medium">
+            Free Plan ($0/forever) • Premium Plan ($15/month)
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mt-8 text-left">
