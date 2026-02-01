@@ -1,6 +1,6 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
-import IntegratedTools from "@/components/landing/IntegratedTools";
+import Hero from "@/components/landing/Hero";
 import Features from "@/components/landing/Features";
 import Languages from "@/components/landing/Languages";
 import HowItWorks from "@/components/landing/HowItWorks";
@@ -14,7 +14,6 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <Hero />
-      <IntegratedTools />
       <Features />
       <Languages />
       <HowItWorks />
