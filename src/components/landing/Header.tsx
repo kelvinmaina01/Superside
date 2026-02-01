@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import SupersideLogo from "@/components/SupersideLogo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
   return (
@@ -31,6 +32,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <span className="text-sm font-medium text-primary">Free</span>
           <Button size="sm" className="gap-2">
             <SupersideLogo className="w-4 h-4" />

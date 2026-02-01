@@ -4,9 +4,9 @@ import SupersideLogo from "@/components/SupersideLogo";
 
 const CTA = () => {
   return (
-    <section className="py-20 px-4 bg-primary text-primary-foreground">
-      <div className="container mx-auto text-center max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
+    <section className="py-20 px-4">
+      <div className="container mx-auto text-center max-w-4xl bg-primary text-primary-foreground rounded-3xl p-12 md:p-16 shadow-2xl">
+        <h2 className="text-3xl md:text-5xl font-bold mb-4">Ready to Get Started?</h2>
         <p className="text-xl opacity-90 mb-8">Join Thousands of Users</p>
         <p className="opacity-80 mb-8">
           Install our Chrome extension and start summarizing web content instantly. Free, secure, and trusted by professionals worldwide.
