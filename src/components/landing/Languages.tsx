@@ -44,11 +44,15 @@ const Languages = () => {
             {languages.map((lang, index) => (
               <div
                 key={index}
-                className="bg-card border rounded-xl p-4 text-center hover:shadow-md transition-shadow"
+                className="bg-card border rounded-2xl p-4 flex flex-col items-center gap-3 hover:shadow-lg transition-all hover:-translate-y-1 group"
               >
-                <span className="text-2xl mb-2 block">{lang.flag}</span>
-                <span className="text-xs font-medium block truncate">{lang.name}</span>
-                <span className="text-xs text-muted-foreground">{lang.code}</span>
+                <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                  {lang.flag}
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-bold block">{lang.name}</span>
+                  <span className="text-xs text-muted-foreground font-mono">{lang.code}</span>
+                </div>
               </div>
             ))}
           </div>
