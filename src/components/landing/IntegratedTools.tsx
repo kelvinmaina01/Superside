@@ -42,7 +42,7 @@ const IntegratedTools = () => {
                   : "scale-90 opacity-60 hover:opacity-100"
                   }`}
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center p-2 overflow-hidden group">
+                <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center p-2 overflow-hidden group bg-accent/50 rounded-2xl">
                   <img
                     src={tool.logo}
                     alt={tool.name}
