@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Chrome, Globe, Shield } from "lucide-react";
+import { Globe, Shield, Play } from "lucide-react";
+import SupersideLogo from "@/components/SupersideLogo";
 
 const Hero = () => {
   return (
@@ -22,8 +23,12 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <Button size="lg" className="gap-2 px-8">
-            <Chrome className="w-5 h-5" />
+            <SupersideLogo className="w-5 h-5" />
             Add to Chrome
+          </Button>
+          <Button size="lg" variant="outline" className="gap-2 px-8">
+            <Play className="w-5 h-5" />
+            Watch Demo
           </Button>
         </div>
 
