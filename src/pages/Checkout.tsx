@@ -109,78 +109,78 @@ const Checkout = () => {
                     <div className="grid grid-cols-2 gap-4">
                         <button className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-primary rounded-2xl bg-primary/[0.03] shadow-inner-sm transition-all scale-100 active:scale-95 group">
                             <CreditCard className="w-6 h-6 text-primary" />
-                            <span className="text-xs font-bold text-primary uppercase">Credit Card</span>
+                            <span className="text-[10px] font-black text-primary uppercase tracking-widest">Credit Card</span>
                         </button>
-                        <button className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 rounded-2xl bg-slate-50 dark:bg-slate-900 transition-all opacity-70 grayscale hover:grayscale-0 hover:opacity-100">
-                            <span className="text-xl font-bold tracking-tighter"> Pay</span>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase">Apple Pay</span>
+                        <button className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 rounded-2xl bg-slate-50 dark:bg-slate-900 transition-all opacity-90 group active:scale-95">
+                            <img src="/logos/apple-pay.png" alt="Apple Pay" className="h-8 w-auto object-contain" />
+                            <span className="text-[10px] font-black text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 uppercase tracking-widest transition-colors">Apple Pay</span>
                         </button>
                     </div>
 
                     <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handlePayment(); }}>
                         <div className="space-y-2 group">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest px-1">Email Address</label>
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Email Address</label>
                             <input
                                 type="email"
                                 defaultValue="customer@example.com"
-                                className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-medium"
+                                className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-semibold"
                                 required
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest px-1">Card Information</label>
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Card Information</label>
                             <div className="relative group">
                                 <input
                                     type="text"
                                     placeholder="0000 0000 0000 0000"
-                                    className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-mono"
+                                    className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-mono tracking-widest"
                                     required
                                 />
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
-                                    <div className="w-8 h-5 bg-slate-200 dark:bg-slate-800 rounded-sm"></div>
+                                    <CreditCard className="w-5 h-5 text-slate-400" />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <input
                                     type="text"
                                     placeholder="MM / YY"
-                                    className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-mono"
+                                    className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-mono tracking-widest"
                                     required
                                 />
                                 <input
                                     type="text"
                                     placeholder="CVC"
-                                    className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-mono"
+                                    className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-mono tracking-widest"
                                     required
                                 />
                             </div>
                         </div>
 
-                        <Button className="w-full h-14 text-lg font-black mt-4 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.98] transition-all rounded-xl" type="submit">
+                        <Button className="w-full h-14 text-lg font-black mt-4 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.98] transition-all rounded-xl uppercase tracking-tighter" type="submit">
                             Pay {currentPlan.price}
                         </Button>
                     </form>
 
-                    <div className="flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                        <div className="flex items-center gap-1.5">
+                    <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">
+                        <div className="flex items-center gap-1.5 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
                             <Shield className="w-3.5 h-3.5" />
                             <span>PCI Compliant</span>
                         </div>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-1.5 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
                             <Lock className="w-3.5 h-3.5" />
                             <span>Secure Session</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                            <span>Encrypted</span>
+                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+                            <span className="text-green-600/80 dark:text-green-400/80">Encrypted</span>
                         </div>
                     </div>
 
-                    <div className="pt-6 text-center border-t border-slate-100 dark:border-slate-800">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Powered by</span>
-                        <div className="flex items-center justify-center gap-2 mt-2 grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100 font-black italic text-xl">
-                            stripe
+                    <div className="pt-8 text-center border-t border-slate-100 dark:border-slate-800">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Secured by</span>
+                        <div className="flex items-center justify-center mt-3 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100">
+                            <img src="/logos/stripe-full.png" alt="Stripe" className="h-8 w-auto object-contain" />
                         </div>
                     </div>
                 </div>
