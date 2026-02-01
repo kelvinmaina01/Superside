@@ -1,11 +1,11 @@
 // IntegratedTools.tsx
 
 const tools = [
-  { name: "ChatGPT", logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
-  { name: "Groq", logo: "https://cdn.brandfolder.io/3V0U9Y6H/at/gv6gj6p6mxv76v6g/Groq_Logo_Vertical_Black_RGB.png" },
-  { name: "DeepSeek", logo: "https://www.deepseek.com/favicon.ico" },
-  { name: "Gemini", logo: "https://www.gstatic.com/lamda/images/favicon_v1_150160cddff7f294ce30.png" },
-  { name: "Claude", logo: "https://claude.ai/images/claude_favicon.png" },
+  { name: "ChatGPT", logo: "https://logo.clearbit.com/openai.com" },
+  { name: "Groq", logo: "https://logo.clearbit.com/groq.com" },
+  { name: "DeepSeek", logo: "https://logo.clearbit.com/deepseek.com" },
+  { name: "Gemini", logo: "https://logo.clearbit.com/google.com" },
+  { name: "Claude", logo: "https://logo.clearbit.com/anthropic.com" },
 ];
 
 // Duplicate for seamless loop
