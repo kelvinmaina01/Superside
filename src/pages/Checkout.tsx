@@ -49,28 +49,28 @@ const Checkout = () => {
                         <div className="p-2.5 bg-primary rounded-2xl shadow-lg shadow-primary/20">
                             <SupersideLogo className="w-6 h-6 text-white" />
                         </div>
-                        <span className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+                        <span className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
                             Superside
                         </span>
                     </div>
 
                     <div className="space-y-6 animate-in fade-in slide-in-from-left duration-700">
                         <div>
-                            <p className="text-primary font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-3 flex items-center gap-2">
+                            <p className="text-primary font-semibold uppercase tracking-widest text-[10px] sm:text-xs mb-3 flex items-center gap-2">
                                 <span className="w-8 h-[1px] bg-primary/30"></span>
                                 Now Subscribing to
                             </p>
-                            <h1 className="text-4xl md:text-6xl font-black leading-none mb-4">
+                            <h1 className="text-4xl md:text-6xl font-bold leading-none mb-4">
                                 {currentPlan.name}
                             </h1>
                             <div className="flex items-baseline gap-2">
-                                <span className="text-4xl font-bold">{currentPlan.price}</span>
+                                <span className="text-4xl font-semibold">{currentPlan.price}</span>
                                 <span className="text-slate-500 font-medium">/ month</span>
                             </div>
                         </div>
 
                         <div className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 dark:border-slate-800/60 space-y-4">
-                            <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">Plan Highlights</p>
+                            <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Plan Highlights</p>
                             <ul className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
                                 {currentPlan.features.map((feature, i) => (
                                     <li key={i} className="flex items-center gap-3 text-sm font-medium">
@@ -88,7 +88,7 @@ const Checkout = () => {
                         <span className="text-slate-500">Subtotal</span>
                         <span>{currentPlan.price}</span>
                     </div>
-                    <div className="flex justify-between items-center text-xl font-black">
+                    <div className="flex justify-between items-center text-xl font-bold">
                         <span>Total amount due</span>
                         <span className="text-primary">{currentPlan.price}</span>
                     </div>
@@ -102,34 +102,34 @@ const Checkout = () => {
             <div className="flex-1 bg-white dark:bg-[#020617] p-8 lg:p-20 flex flex-col justify-center overflow-y-auto">
                 <div className="max-w-md w-full mx-auto space-y-10 animate-in fade-in slide-in-from-bottom duration-700">
                     <div>
-                        <h2 className="text-2xl font-bold mb-1 tracking-tight">Checkout</h2>
+                        <h2 className="text-2xl font-semibold mb-1 tracking-tight">Checkout</h2>
                         <p className="text-slate-500 text-sm">Select payment method and fill details</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <button className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-primary rounded-2xl bg-primary/[0.03] shadow-inner-sm transition-all scale-100 active:scale-95 group">
                             <CreditCard className="w-6 h-6 text-primary" />
-                            <span className="text-[10px] font-black text-primary uppercase tracking-widest">Credit Card</span>
+                            <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Credit Card</span>
                         </button>
                         <button className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 rounded-2xl bg-slate-50 dark:bg-slate-900 transition-all opacity-90 group active:scale-95">
                             <img src="/logos/apple-pay.png" alt="Apple Pay" className="h-8 w-auto object-contain" />
-                            <span className="text-[10px] font-black text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 uppercase tracking-widest transition-colors">Apple Pay</span>
+                            <span className="text-[10px] font-bold text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 uppercase tracking-widest transition-colors">Apple Pay</span>
                         </button>
                     </div>
 
                     <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handlePayment(); }}>
                         <div className="space-y-2 group">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Email Address</label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] px-1">Email Address</label>
                             <input
                                 type="email"
                                 defaultValue="customer@example.com"
-                                className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-semibold"
+                                className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 focus:bg-white dark:focus:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all font-medium"
                                 required
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Card Information</label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] px-1">Card Information</label>
                             <div className="relative group">
                                 <input
                                     type="text"
@@ -157,12 +157,12 @@ const Checkout = () => {
                             </div>
                         </div>
 
-                        <Button className="w-full h-14 text-lg font-black mt-4 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.98] transition-all rounded-xl uppercase tracking-tighter" type="submit">
+                        <Button className="w-full h-14 text-lg font-bold mt-4 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.98] transition-all rounded-xl uppercase tracking-tighter" type="submit">
                             Pay {currentPlan.price}
                         </Button>
                     </form>
 
-                    <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">
+                    <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
                         <div className="flex items-center gap-1.5 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
                             <Shield className="w-3.5 h-3.5" />
                             <span>PCI Compliant</span>
@@ -173,12 +173,12 @@ const Checkout = () => {
                         </div>
                         <div className="flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
-                            <span className="text-green-600/80 dark:text-green-400/80">Encrypted</span>
+                            <span className="text-green-600/80 dark:text-green-400/80 uppercase font-bold tracking-widest">Encrypted</span>
                         </div>
                     </div>
 
                     <div className="pt-8 text-center border-t border-slate-100 dark:border-slate-800">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Secured by</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">Secured by</span>
                         <div className="flex items-center justify-center mt-3 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100">
                             <img src="/logos/stripe-full.png" alt="Stripe" className="h-8 w-auto object-contain" />
                         </div>
