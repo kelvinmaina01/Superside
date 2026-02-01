@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Chrome } from "lucide-react";
+import { Check } from "lucide-react";
+import SupersideLogo from "@/components/SupersideLogo";
+import { useState } from "react";
 
 const plans = [
   {
+    id: "price_free_forever",
     name: "Free",
     price: "$0",
     period: "forever",
@@ -19,6 +22,7 @@ const plans = [
     popular: false,
   },
   {
+    id: "price_premium_monthly",
     name: "Premium",
     price: "$15",
     period: "per month",
@@ -40,6 +44,20 @@ const plans = [
 ];
 
 const Pricing = () => {
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+
+  const handleStripeCheckout = async (planId: string) => {
+    setLoadingId(planId);
+
+    // Simulate Stripe Checkout redirect
+    console.log(`Redirecting to Stripe for plan: ${planId}`);
+
+    setTimeout(() => {
+      setLoadingId(null);
+      alert("Stripe Checkout redirect simulation. In production, this would open the Stripe checkout page.");
+    }, 1500);
+  };
+
   return (
     <section id="pricing" className="py-20 px-4">
       <div className="container mx-auto max-w-4xl">
@@ -82,9 +100,11 @@ const Pricing = () => {
                 <Button
                   className="w-full gap-2"
                   variant={plan.popular ? "default" : "outline"}
+                  onClick={() => handleStripeCheckout(plan.id)}
+                  disabled={loadingId === plan.id}
                 >
-                  <Chrome className="w-4 h-4" />
-                  {plan.cta}
+                  <SupersideLogo className="w-4 h-4" />
+                  {loadingId === plan.id ? "Processing..." : plan.cta}
                 </Button>
               </CardContent>
             </Card>
