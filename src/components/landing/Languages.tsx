@@ -1,22 +1,22 @@
 import { Card, CardContent } from "@/components/ui/card";
 
 const languages = [
-  { flag: "🇺🇸", name: "English", code: "EN" },
-  { flag: "🇮🇳", name: "தமிழ்", code: "TA" },
-  { flag: "🇮🇳", name: "हिन्दी", code: "HI" },
-  { flag: "🇪🇸", name: "Español", code: "ES" },
-  { flag: "🇫🇷", name: "Français", code: "FR" },
-  { flag: "🇩🇪", name: "Deutsch", code: "DE" },
-  { flag: "🇮🇹", name: "Italiano", code: "IT" },
-  { flag: "🇵🇹", name: "Português", code: "PT" },
-  { flag: "🇷🇺", name: "Русский", code: "RU" },
-  { flag: "🇯🇵", name: "日本語", code: "JA" },
-  { flag: "🇰🇷", name: "한국어", code: "KO" },
-  { flag: "🇨🇳", name: "中文", code: "ZH" },
-  { flag: "🇸🇦", name: "العربية", code: "AR" },
-  { flag: "🇮🇳", name: "മലയാളം", code: "ML" },
-  { flag: "🇮🇳", name: "తెలుగు", code: "TE" },
-  { flag: "🇮🇳", name: "ಕನ್ನಡ", code: "KN" },
+  { country: "us", name: "English", code: "EN" },
+  { country: "in", name: "தமிழ்", code: "TA" },
+  { country: "in", name: "हिन्दी", code: "HI" },
+  { country: "es", name: "Español", code: "ES" },
+  { country: "fr", name: "Français", code: "FR" },
+  { country: "de", name: "Deutsch", code: "DE" },
+  { country: "it", name: "Italiano", code: "IT" },
+  { country: "pt", name: "Português", code: "PT" },
+  { country: "ru", name: "Русский", code: "RU" },
+  { country: "jp", name: "日本語", code: "JA" },
+  { country: "kr", name: "한국어", code: "KO" },
+  { country: "cn", name: "中文", code: "ZH" },
+  { country: "sa", name: "العربية", code: "AR" },
+  { country: "in", name: "മലയാളം", code: "ML" },
+  { country: "in", name: "తెలుగు", code: "TE" },
+  { country: "in", name: "ಕನ್ನಡ", code: "KN" },
 ];
 
 const regions = [
@@ -46,8 +46,12 @@ const Languages = () => {
                 key={index}
                 className="bg-card border rounded-2xl p-4 flex flex-col items-center gap-3 hover:shadow-lg transition-all hover:-translate-y-1 group"
               >
-                <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 transition-transform">
-                  {lang.flag}
+                <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center overflow-hidden shadow-inner group-hover:scale-110 transition-transform bg-white">
+                  <img
+                    src={`https://flagcdn.com/w80/${lang.country}.png`}
+                    alt={`${lang.name} flag`}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="text-center">
                   <span className="text-sm font-bold block">{lang.name}</span>
