@@ -1,8 +1,19 @@
-# 🚀 Superside: Smart Summaries In Seconds
+# <p align="center">🚀 Superside: Smart Summaries In Seconds</p>
 
-**Superside** is an AI-powered Chrome extension designed to revolutionize how you consume web content. Capture any area of a webpage and get instant, accurate summaries and insights in over 16 languages.
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Development-yellow" alt="Status" />
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version" />
+  <img src="https://img.shields.io/badge/AI-Empowered-brightgreen" alt="AI" />
+  <img src="https://img.shields.io/badge/Language-16%2B%20Supported-orange" alt="Languages" />
+</p>
 
-![Superside Hero](./public/screenshots/hero.png)
+---
+
+**Superside** is a powerful AI-powered Chrome extension designed to revolutionize how you consume web content. Capture any area of a webpage and get instant, accurate summaries and insights in over 16 languages.
+
+<p align="center">
+  <img src="./public/screenshots/hero.png" width="800" alt="Superside Hero" />
+</p>
 
 ## ✨ Key Features
 
@@ -13,20 +24,18 @@
 - **🛡️ Privacy First**: Secure processing with a focus on data protection.
 - **💬 Interactive AI Chat**: Dive deeper into any topic by starting a conversation with our integrated AI models.
 
-## 🛠️ Integrated With
+## 🛠️ Integrated LLMs
 
-Superside leverages the power of industry-leading AI models:
-- **Groq** & **DeepSeek** (Fast & Thinking modes)
+Superside leverages the efficiency of industry-leading AI models:
+- **Groq** & **DeepSeek** (Optimized for speed and reasoning)
 - **ChatGPT**, **Gemini**, **Claude**
 
 ## 🚀 How It Works
 
-![How It Works](./public/screenshots/cta.png)
-
 1.  **Add to Chrome**: Install the extension from the Chrome Web Store.
-2.  **Select & Capture**: Use the snap tool to select any content on your screen.
-3.  **AI Analysis**: Our models process the content instantly.
-4.  **Learn & Grow**: Receive clear, concise summaries and insights.
+2.  **Select & Capture**: Use the intuitive snap tool to select any content on your screen.
+3.  **AI Analysis**: Our models process the visual and textual content instantly.
+4.  **Learn & Grow**: Receive clear, concise summaries and actionable insights.
 
 ---
 
@@ -34,7 +43,7 @@ Superside leverages the power of industry-leading AI models:
 
 - **Frontend**: React, TypeScript, Vite
 - **UI Components**: shadcn/ui, Radix UI, Lucide Icons
-- **Styling**: Tailwind CSS, CSS Animations
+- **Styling**: Tailwind CSS, Framer Motion
 - **State Management**: TanStack Query (React Query)
 - **Routing**: React Router DOM
 
@@ -46,8 +55,8 @@ To get started with the project locally:
 
 1.  **Clone the repository**:
     ```sh
-    git clone <your-repo-url>
-    cd snap-learn-ai
+    git clone https://github.com/kelvinmaina01/Superside.git
+    cd Superside
     ```
 
 2.  **Install dependencies**:
@@ -67,6 +76,10 @@ To get started with the project locally:
 
 ---
 
-Built with ❤️ by the Superside Team.
+<p align="center">
+  <img src="./public/screenshots/footer.png" width="100%" alt="Get Started with Superside" />
+</p>
 
-Built with ❤️ by the Superside Team.
+<p align="center">
+  Built with ❤️ by the <b>Superside Team</b>.
+</p>

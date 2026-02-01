@@ -1,15 +1,15 @@
-import { Bot, Sparkles, Brain, MessageSquare, Zap } from "lucide-react";
+// IntegratedTools.tsx
 
 const tools = [
-  { name: "ChatGPT", icon: MessageSquare },
-  { name: "Groq", icon: Zap },
-  { name: "DeepSeek", icon: Brain },
-  { name: "Gemini", icon: Sparkles },
-  { name: "Claude", icon: Bot },
+  { name: "ChatGPT", logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
+  { name: "Groq", logo: "https://cdn.brandfolder.io/3V0U9Y6H/at/gv6gj6p6mxv76v6g/Groq_Logo_Vertical_Black_RGB.png" },
+  { name: "DeepSeek", logo: "https://www.deepseek.com/favicon.ico" },
+  { name: "Gemini", logo: "https://www.gstatic.com/lamda/images/favicon_v1_150160cddff7f294ce30.png" },
+  { name: "Claude", logo: "https://claude.ai/images/claude_favicon.png" },
 ];
 
 // Duplicate for seamless loop
-const allTools = [...tools, ...tools];
+const allTools = [...tools, ...tools, ...tools];
 
 const IntegratedTools = () => {
   return (
@@ -31,10 +31,17 @@ const IntegratedTools = () => {
           {allTools.map((tool, index) => (
             <div
               key={`${tool.name}-${index}`}
-              className="flex items-center gap-3 mx-12 flex-shrink-0"
+              className="flex items-center gap-2 mx-6 flex-shrink-0"
             >
-              <div className="w-10 h-10 rounded-lg bg-background border flex items-center justify-center text-muted-foreground">
-                <tool.icon className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-lg bg-background border flex items-center justify-center p-2 overflow-hidden shadow-sm">
+                <img
+                  src={tool.logo}
+                  alt={tool.name}
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "https://www.dummyimage.com/40x40/f1f5f9/64748b?text=" + tool.name[0];
+                  }}
+                />
               </div>
               <span className="text-lg font-medium text-muted-foreground whitespace-nowrap">
                 {tool.name}
