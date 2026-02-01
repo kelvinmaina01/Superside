@@ -1,6 +1,5 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
-import Hero from "@/components/landing/Hero";
 import Features from "@/components/landing/Features";
 import Languages from "@/components/landing/Languages";
 import HowItWorks from "@/components/landing/HowItWorks";

@@ -11,7 +11,7 @@ const Header = () => {
         <Link to="/" className="flex items-center gap-2">
           <SupersideLogo className="w-8 h-8" />
           <span className="font-bold text-lg">Superside</span>
-          <span className="text-xs bg-muted px-2 py-0.5 rounded-full text-muted-foreground">
+          <span className="text-[10px] font-bold bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 px-2 py-0.5 rounded-full uppercase tracking-wider border border-emerald-200/50 dark:border-emerald-500/20 shadow-sm animate-pulse-subtle">
             Chrome Extension
           </span>
         </Link>
