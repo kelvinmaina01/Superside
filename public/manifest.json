@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "SuperSide: Smart Summaries In Seconds",
+    "version": "1.0.0",
+    "description": "Capture any area of a webpage and get instant AI-powered summaries in 16+ languages.",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": {
+            "16": "favicon.svg",
+            "48": "favicon.svg",
+            "128": "favicon.svg"
+        }
+    },
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": [
+        "http://localhost:8000/*",
+        "https://api.deepseek.com/*",
+        "https://api.groq.com/*"
+    ],
+    "icons": {
+        "16": "favicon.svg",
+        "48": "favicon.svg",
+        "128": "favicon.svg"
+    }
+}
