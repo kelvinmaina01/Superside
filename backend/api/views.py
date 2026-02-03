@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from .models import CaptureSession, AIInteraction
-from .serializers import CaptureSessionSerializer, AIInteractionSerializer
+from .models import CaptureSession, AIInteraction, Profile
+from .serializers import CaptureSessionSerializer, AIInteractionSerializer, ProfileSerializer
 from services.ai_service import AIService
 from .billing_service import BillingService
 from django.views.decorators.csrf import csrf_exempt
@@ -66,6 +66,14 @@ class AIChatView(APIView):
                 "limit": 5 if profile.tier == 'free' else "unlimited"
             }
         }, status=status.HTTP_201_CREATED)
+
+class ProfileView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        profile = request.user.profile
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
 
 class HistoryView(APIView):
     permission_classes = [permissions.IsAuthenticated]

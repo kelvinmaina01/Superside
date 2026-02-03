@@ -1,11 +1,12 @@
+```python
 from rest_framework import serializers
-from .models import CaptureSession, AIInteraction
+from .models import CaptureSession, AIInteraction, Profile
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email']
+        model = Profile
+        fields = ['tier', 'screenshots_today', 'last_reset_date']
 
 class AIInteractionSerializer(serializers.ModelSerializer):
     class Meta:

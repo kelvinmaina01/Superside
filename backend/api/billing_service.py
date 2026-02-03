@@ -2,25 +2,23 @@ import stripe
 import os
 from django.conf import settings
 from .models import Profile
+from django.contrib.auth.models import User
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 class BillingService:
     @staticmethod
-    def create_checkout_session(user, plan_type='premium'):
-        """
-        Creates a Stripe Checkout Session for the user.
-        """
-        price_id = os.getenv('STRIPE_PREMIUM_PRICE_ID') # Get from .env
-        
+    def create_checkout_session(user):
         try:
-            session = stripe.checkout.Session.create(
+            checkout_session = stripe.checkout.Session.create(
                 customer_email=user.email,
                 payment_method_types=['card'],
-                line_items=[{
-                    'price': price_id,
-                    'quantity': 1,
-                }],
+                line_items=[
+                    {
+                        'price': os.getenv('STRIPE_PREMIUM_PRICE_ID'),
+                        'quantity': 1,
+                    },
+                ],
                 mode='subscription',
                 success_url=os.getenv('STRIPE_SUCCESS_URL'),
                 cancel_url=os.getenv('STRIPE_CANCEL_URL'),
