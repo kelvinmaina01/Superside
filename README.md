@@ -9,9 +9,33 @@
 
 ---
 
-**Superside** is more than just a screenshot tool. It's an intelligent companion that lives on your screen. What if you could take a snapshot of a complex chart, a tricky quiz, or a dense line of code and get a "Deep Thinking" answer instantly?
+**Superside** is an advanced **AI Agent** that lives on your screen. What if you could take a snapshot of a complex chart, a tricky quiz, or a dense line of code and have an agent analyze, reason, and provide answers instantly?
 
-**No more switching tools. No more copy-pasting to ChatGPT.** Just snap, think, and learn.
+**No more switching tools. No more copy-pasting to ChatGPT.** Just snap, and let the agent do the work.
+
+## 🏗️ Agent Architecture
+
+Superside operates as a sophisticated AI Agentic system, orchestrating multiple models to deliver the highest quality of reasoning.
+
+```mermaid
+graph TD
+    User((User)) -->|Capture Snapshot| Extension[Chrome Extension]
+    Extension -->|API Request| Agent[Superside AI Agent]
+    
+    subgraph "Agentic Orchestration Layer"
+        Agent -->|Primary: Deep Thinking| DSR[DeepSeek Reasoner]
+        Agent -->|Primary: Fast Response| DSC[DeepSeek Chat]
+        Agent -.->|Fallback / Speed| Groq[Groq Llama-3]
+    end
+    
+    DSR -->|Insights| Processor[Context Processor]
+    DSC -->|Insights| Processor
+    Groq -->|Insights| Processor
+    
+    Processor -->|Persist| DB[(SQLite Database)]
+    Processor -->|Stream| Extension
+    Extension -->|Final Answer| User
+```
 
 ## 🧠 The AI Layers (Our Secret Sauce)
 
