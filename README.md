@@ -11,6 +11,20 @@
 
 **Superside** is an advanced **AI Agent** designed to revolutionize how you consume web content. Capture any area of a webpage and have an agent analyze, reason, and provide answers instantly in over 16 languages.
 
+
+<p align="center">
+  <img src="./public/screenshots/hero.png" width="800" alt="Superside Hero" />
+</p>
+
+## ✨ Key Features
+
+- **📸 Smart Snap Tool**: Select any area of a webpage—perfect for quizzes, articles, and complex visual content.
+- **🧠 AI Detection**: Automatically identifies quiz questions and Q&A content, providing instant answers with detailed explanations.
+- **🌍 Multilingual Power**: Advanced support for 16+ languages, including English, Tamil, Hindi, Malayalam, Telugu, Kannada, Spanish, French, German, Arabic, Chinese, Japanese, and more.
+- **⚡ Lightning Fast**: Get comprehensive summaries in under 3 seconds.
+- **🛡️ Privacy First**: Secure processing with a focus on data protection.
+- **💬 Interactive AI Chat**: Dive deeper into any topic by starting a conversation with our integrated AI models.
+
 ## 🏗️ Agent Architecture
 
 Superside operates as a sophisticated AI Agentic system, orchestrating multiple models to deliver the highest quality of reasoning.
@@ -33,19 +47,6 @@ graph TD
     Processor -->|Stream| Extension
     Extension -->|Final Answer| User
 ```
-
-<p align="center">
-  <img src="./public/screenshots/hero.png" width="800" alt="Superside Hero" />
-</p>
-
-## ✨ Key Features
-
-- **📸 Smart Snap Tool**: Select any area of a webpage—perfect for quizzes, articles, and complex visual content.
-- **🧠 AI Detection**: Automatically identifies quiz questions and Q&A content, providing instant answers with detailed explanations.
-- **🌍 Multilingual Power**: Advanced support for 16+ languages, including English, Tamil, Hindi, Malayalam, Telugu, Kannada, Spanish, French, German, Arabic, Chinese, Japanese, and more.
-- **⚡ Lightning Fast**: Get comprehensive summaries in under 3 seconds.
-- **🛡️ Privacy First**: Secure processing with a focus on data protection.
-- **💬 Interactive AI Chat**: Dive deeper into any topic by starting a conversation with our integrated AI models.
 
 ## 🛠️ Integrated LLMs
 
