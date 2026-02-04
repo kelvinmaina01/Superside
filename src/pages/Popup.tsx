@@ -78,25 +78,32 @@ const Popup = () => {
                 return;
             }
 
-            // First, ensure the content script is loaded
+            // Ensure content script is ready
             try {
-                // Try to send message first
+                console.log("Checking if content script is already there...");
+                // Ping the tab to see if it responds
+                await chrome.tabs.sendMessage(tab.id, { type: 'PING' });
+                console.log("Content script found, sending SHOW_OVERLAY");
                 await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
                 window.close();
-            } catch (messageError) {
-                // If message fails, inject the script
-                console.log("Content script not found, injecting...");
-                await chrome.scripting.executeScript({
-                    target: { tabId: tab.id },
-                    files: ['content.js']
-                });
+            } catch (pingError) {
+                console.log("Content script not found or not responding. Injecting manually...");
+                try {
+                    await chrome.scripting.executeScript({
+                        target: { tabId: tab.id },
+                        files: ['loader.js']
+                    });
 
-                // Wait a bit for script to initialize
-                await new Promise(resolve => setTimeout(resolve, 100));
+                    // Wait a bit more for injection to finish
+                    await new Promise(resolve => setTimeout(resolve, 300));
 
-                // Retry message
-                await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
-                window.close();
+                    console.log("Retrying message after injection...");
+                    await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
+                    window.close();
+                } catch (injectionError: any) {
+                    console.error("Manual injection failed:", injectionError);
+                    throw new Error(`Connection failed: ${injectionError.message || 'Unknown error'}`);
+                }
             }
         } catch (error: any) {
             console.error("Capture Error:", error);

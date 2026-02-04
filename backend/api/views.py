@@ -71,7 +71,7 @@ class AIChatView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 class AnalyzeScreenshotView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
     def post(self, request):
         """
@@ -86,34 +86,39 @@ class AnalyzeScreenshotView(APIView):
         if not image:
             return Response({"error": "Image is required"}, status=status.HTTP_400_BAD_REQUEST)
             
-        # Get or create session
-        session = CaptureSession.objects.create(user=request.user)
-        
         ai_service = AIService()
         ai_response = ai_service.analyze_image(image, prompt, language=language, mode=mode)
         
         if "error" in ai_response:
              return Response(ai_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # Save Interaction
-        interaction = AIInteraction.objects.create(
-            session=session,
-            prompt=prompt or "Analyze Screenshot",
-            answer=ai_response['answer'],
-            thought_process=ai_response.get('thought_process', ''),
-            mode=mode,
-            model_used=ai_response.get('model', 'unknown')
-        )
-        
-        # Increment usage
-        profile = request.user.profile
-        profile.screenshots_today += 1
-        profile.save()
+        # Log usage and save session ONLY if user is authenticated
+        session_id = None
+        if request.user.is_authenticated:
+            # Get or create session
+            session = CaptureSession.objects.create(user=request.user)
+            session_id = session.id
+            
+            # Save Interaction
+            AIInteraction.objects.create(
+                session=session,
+                prompt=prompt or "Analyze Screenshot",
+                answer=ai_response['answer'],
+                thought_process=ai_response.get('thought_process', ''),
+                mode=mode,
+                model_used=ai_response.get('model', 'unknown')
+            )
+            
+            # Increment usage
+            profile = request.user.profile
+            profile.screenshots_today += 1
+            profile.save()
         
         return Response({
             "answer": ai_response['answer'],
             "model": ai_response.get('model'),
-            "session_id": session.id
+            "session_id": session_id,
+            "is_guest": not request.user.is_authenticated
         })
 
 class ProfileView(APIView):

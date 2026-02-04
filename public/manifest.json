@@ -24,7 +24,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "content.js"
+                "loader.js"
             ],
             "css": [
                 "assets/index.css"
@@ -34,7 +34,9 @@
     "web_accessible_resources": [
         {
             "resources": [
-                "assets/*"
+                "assets/*",
+                "content.js",
+                "index.js"
             ],
             "matches": [
                 "<all_urls>"

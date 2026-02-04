@@ -20,11 +20,13 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "dist",
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
         "service-worker": path.resolve(__dirname, "src/background/index.ts"),
         content: path.resolve(__dirname, "src/content/index.tsx"),
+        loader: path.resolve(__dirname, "src/content/loader.ts"),
       },
       output: {
         entryFileNames: "[name].js",

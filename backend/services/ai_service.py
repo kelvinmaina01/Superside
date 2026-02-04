@@ -12,18 +12,32 @@ class AIService:
 
     def analyze_image(self, image_base64, prompt, language="English", mode="fast"):
         """
-        Analyzes an image using OpenRouter (with DeepSeek or other vision models).
-        Falls back to Groq if OpenRouter fails.
+        Analyzes an image and returns a structured Markdown response.
         """
         
-        # Prepare Prompt
-        system_prompt = f"You are a helpful AI assistant. Analyze the provided image and answer the user's prompt. Respond in {language}."
-        if mode == "thinking":
-            system_prompt += " Provide a deep, reasoning-based analysis. break down the details."
+        # Enhanced Structure Prompt
+        structure_guidelines = (
+            "You must return your analysis in a highly readable, structured format. "
+            "Use clear ## Titles for main sections and ### for sub-headers. "
+            "Organize information into granular bullet points for clarity. "
+            "Contextual Formatting: "
+            "- Use **Bold** for primary terms, statistics, or key subjects. "
+            "- Use *Italics* for supporting context, secondary notes, or nuanced details. "
+            "- Vary text weight (Normal vs Bold) to create visual hierarchy. "
+            "CRITICAL: Use semantic markers for word weighting: "
+            "- Use !!TEXT!! for critical/urgent points (RED). "
+            "- Use ++TEXT++ for positive/success points (GREEN). "
+            "- Use ((TEXT)) for informational/note points (BLUE). "
+        )
+
+        system_prompt = f"You are an elite AI analyst. Analyze the provided image precisely and respond in {language}. {structure_guidelines}"
+        
+        if mode == "thinking" or mode == "think":
+            system_prompt += " This is THINKING MODE. Provide an extremely deep, granular analysis. Look for subtle details and offer expert-level reasoning."
         else:
-            system_prompt += " Provide a concise and fast summary."
+            system_prompt += " This is FAST MODE. Provide a sharp, concise, and high-impact summary."
             
-        full_prompt = prompt or "Describe this image and its key contents."
+        full_prompt = prompt or "Provide a comprehensive analysis of this image."
 
         # Try OpenRouter first (with DeepSeek vision model or fallback)
         if self.openrouter_api_key:
@@ -36,19 +50,16 @@ class AIService:
         return self._analyze_with_groq(image_base64, full_prompt, language, system_prompt, mode)
 
     def _analyze_with_openrouter(self, image_base64, prompt, language, system_prompt, mode):
-        """Use OpenRouter API with DeepSeek or best available vision model"""
+        """Use OpenRouter API with Claude 3.5 Sonnet for vision"""
         headers = {
             "Authorization": f"Bearer {self.openrouter_api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "http://localhost:8080",  # Required by OpenRouter
+            "HTTP-Referer": "http://localhost:8080",
             "X-Title": "Superside Extension"
         }
         
-        # Try to use a vision-capable model
-        # OpenRouter model priorities: DeepSeek vision > GPT-4 Vision > others
-        model = "openai/gpt-4-vision-preview"  # Fallback model
-        if mode == "thinking":
-            model = "deepseek/deepseek-reasoner"  # If vision+reasoning is available
+        # Use Claude 3.5 Sonnet - it's the working vision model on OpenRouter
+        model = "anthropic/claude-3.5-sonnet"
         
         payload = {
             "model": model,
@@ -85,14 +96,17 @@ class AIService:
         }
 
     def _analyze_with_groq(self, image_base64, prompt, language, system_prompt, mode):
-        """Fallback: Use Groq Llama 3.2 Vision"""
+        """Fallback: Use Groq Llama 4 Scout (Multimodal)"""
         headers = {
             "Authorization": f"Bearer {self.groq_api_key}",
             "Content-Type": "application/json"
         }
         
+        # Use Llama 4 Scout - the current multimodal model
+        model = "meta-llama/llama-4-scout-17b-16e-instruct"
+        
         payload = {
-            "model": "llama-3.2-11b-vision-preview",
+            "model": model,
             "messages": [
                 {
                     "role": "user",
@@ -105,10 +119,6 @@ class AIService:
                             }
                         }
                     ]
-                },
-                {
-                     "role": "system",
-                     "content": system_prompt
                 }
             ],
             "temperature": 0.7,
@@ -121,20 +131,20 @@ class AIService:
             response.raise_for_status()
             result = response.json()
             answer = result['choices'][0]['message']['content']
-            model_used = result['model']
+            model_used = result.get('model', model)
             
             return {
                 "answer": answer,
-                "thought_process": "Analysis performed via Llama 3.2 Vision",
+                "thought_process": f"Analysis via {model_used}",
                 "model": model_used
             }
             
         except Exception as e:
             print(f"Groq Error: {e}")
-            if hasattr(e, 'response'):
+            if hasattr(e, 'response') and e.response:
                  print(e.response.text)
             return {
-                "error": "Failed to analyze image",
+                "error": "Failed to analyze image with Groq",
                 "details": str(e)
             }
 

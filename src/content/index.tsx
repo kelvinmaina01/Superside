@@ -1,42 +1,55 @@
 import { createRoot } from 'react-dom/client';
 import Overlay from './Overlay';
 import '@/index.css';
+import { hostname } from 'os';
 
-console.log('Superside Content Script Loaded');
+console.log('[Superside] Content Script Initializing...');
 
-// Create a container for the overlay (but don't show it yet)
-const container = document.createElement('div');
-container.id = 'snap-learn-overlay-root';
-container.style.display = 'none'; // Hidden by default
-document.body.appendChild(container);
+// ISOLATE WITH SHADOW DOM
+// This prevents host page scripts/React from interfering with our UI
+const hostId = 'superside-ai-host';
+let host = document.getElementById(hostId);
+
+
+if (!host) {
+    host = document.createElement('div');
+    host.id = hostId;
+    document.body.appendChild(host);
+}
+
+const shadowRoot = host.shadowRoot || host.attachShadow({ mode: 'open' });
+
+// Container for React inside Shadow DOM
+let container = shadowRoot.querySelector('#snap-learn-overlay-root') as HTMLDivElement;
+if (!container) {
+    container = document.createElement('div');
+    container.id = 'snap-learn-overlay-root';
+    container.style.display = 'none';
+    shadowRoot.appendChild(container);
+
+    // Inject CSS into Shadow DOM
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = chrome.runtime.getURL('assets/index.css');
+    shadowRoot.appendChild(link);
+
+    // Inject Fonts
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap';
+    shadowRoot.appendChild(fontLink);
+}
+
+// REGISTER LISTENER for content logic
+window.addEventListener('snaplearn:hide-overlay', () => {
+    if (container) container.style.display = 'none';
+});
+
+window.addEventListener('snaplearn:show-overlay', () => {
+    if (container) container.style.display = 'block';
+});
 
 const root = createRoot(container);
 root.render(<Overlay />);
 
-// Listen for messages from the popup
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log('Content script received message:', message);
-
-    if (message.type === 'SHOW_OVERLAY') {
-        console.log('Showing overlay...');
-        container.style.display = 'block';
-
-        // Dispatch a custom event to tell the Overlay component to show
-        window.dispatchEvent(new CustomEvent('snaplearn:show-overlay'));
-
-        sendResponse({ success: true });
-        return true; // Keep message channel open for async response
-    }
-
-    if (message.type === 'HIDE_OVERLAY') {
-        console.log('Hiding overlay...');
-        container.style.display = 'none';
-        sendResponse({ success: true });
-        return true;
-    }
-
-    return false;
-});
-
-// Log that we're ready to receive messages
-console.log('Content script ready and listening for messages');
+console.log('[Superside] Content Script Ready');

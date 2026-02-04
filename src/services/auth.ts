@@ -30,19 +30,20 @@ export const authService = {
             password1: password,
             password2: passwordConfirm,
         });
-        // Check key or access token
-        if (response.data.access) {
-            localStorage.setItem('access_token', response.data.access);
-        } else if (response.data.key) {
-            localStorage.setItem('access_token', response.data.key);
+        const token = response.data.access || response.data.key;
+        if (token) {
+            localStorage.setItem('access_token', token);
+            if (chrome?.storage?.sync) chrome.storage.sync.set({ access_token: token });
         }
         return response.data;
     },
 
     async loginWithGithub(code: string): Promise<AuthResponse> {
         const response = await api.post('auth/github/', { code });
-        if (response.data.access || response.data.key) {
-            localStorage.setItem('access_token', response.data.access || response.data.key);
+        const token = response.data.access || response.data.key;
+        if (token) {
+            localStorage.setItem('access_token', token);
+            if (chrome?.storage?.sync) chrome.storage.sync.set({ access_token: token });
         }
         return response.data;
     },
@@ -50,8 +51,7 @@ export const authService = {
     logout() {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        // Optional: Call logout endpoint logic
-        // api.post('auth/logout/')
+        if (chrome?.storage?.sync) chrome.storage.sync.remove('access_token');
     },
 
     isAuthenticated(): boolean {
