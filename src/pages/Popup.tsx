@@ -4,8 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Camera, Zap, Brain } from "lucide-react";
-import SupersideLogo from "@/components/SupersideLogo";
+import { Camera, Zap, Brain, Aperture } from "lucide-react";
 
 const Popup = () => {
     const [language, setLanguage] = useState("English");
@@ -23,12 +22,36 @@ const Popup = () => {
         // Save settings before capture
         chrome.storage?.sync.set({ language, mode });
 
-        // Close popup and inject/show overlay
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (tab.id) {
-            // Send message to content script to show overlay
-            chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
-            window.close(); // Close the popup
+        try {
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+            if (tab?.id) {
+                // Check if we can inject scripting (simplified check by just trying)
+                if (tab.url?.startsWith("chrome://") || tab.url?.startsWith("edge://") || tab.url?.startsWith("about:")) {
+                    alert("Cannot capture functionality on this special page. Please try a normal website.");
+                    return;
+                }
+
+                await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
+                window.close();
+            }
+        } catch (error) {
+            console.error("Capture Error:", error);
+            // Fallback: Try injecting script if message failed (meaning it might not be there)
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            if (tab?.id) {
+                try {
+                    await chrome.scripting.executeScript({
+                        target: { tabId: tab.id },
+                        files: ['content.js']
+                    });
+                    // Retry message
+                    await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
+                    window.close();
+                } catch (injectionError) {
+                    alert("Failed to start capture. Please refresh the page and try again.");
+                }
+            }
         }
     };
 
@@ -36,8 +59,8 @@ const Popup = () => {
         <div className="w-[350px] p-4 bg-background">
             <Card className="border-0 shadow-none">
                 <CardHeader className="text-center pb-2">
-                    <div className="mx-auto mb-2">
-                        <SupersideLogo className="w-10 h-10" />
+                    <div className="mx-auto mb-2 text-primary">
+                        <Aperture className="w-10 h-10 mx-auto" />
                     </div>
                     <CardTitle className="text-xl">SnapLearn AI</CardTitle>
                     <CardDescription>Capture & Analyze</CardDescription>
