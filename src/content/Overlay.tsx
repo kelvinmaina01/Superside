@@ -20,16 +20,33 @@ const Overlay = () => {
 
     // Communicate with Background/Popup
     useEffect(() => {
+        // Listen for Chrome messages
         const handleMessage = (message: any, sender: any, sendResponse: any) => {
             if (message.type === 'SHOW_OVERLAY') {
+                console.log('Overlay: Received SHOW_OVERLAY message');
                 setVisible(true);
                 setSelection(null);
                 setAnalysisState('idle');
                 setAnalysisResult('');
             }
         };
+
+        // Also listen for custom window events (backup mechanism)
+        const handleCustomEvent = () => {
+            console.log('Overlay: Received custom show event');
+            setVisible(true);
+            setSelection(null);
+            setAnalysisState('idle');
+            setAnalysisResult('');
+        };
+
         chrome.runtime.onMessage.addListener(handleMessage);
-        return () => chrome.runtime.onMessage.removeListener(handleMessage);
+        window.addEventListener('snaplearn:show-overlay', handleCustomEvent);
+
+        return () => {
+            chrome.runtime.onMessage.removeListener(handleMessage);
+            window.removeEventListener('snaplearn:show-overlay', handleCustomEvent);
+        };
     }, []);
 
     const handleMouseDown = (e: React.MouseEvent) => {
