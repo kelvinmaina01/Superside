@@ -9,7 +9,7 @@
         "storage"
     ],
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "index.html#/popup",
         "default_title": "SnapLearn AI"
     },
     "background": {
