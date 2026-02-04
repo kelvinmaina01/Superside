@@ -1,4 +1,3 @@
-```python
 from rest_framework import serializers
 from .models import CaptureSession, AIInteraction, Profile
 from django.contrib.auth.models import User

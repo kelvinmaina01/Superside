@@ -1,29 +1,41 @@
 {
     "manifest_version": 3,
-    "name": "SuperSide: Smart Summaries In Seconds",
+    "name": "SnapLearn AI",
     "version": "1.0.0",
-    "description": "Capture any area of a webpage and get instant AI-powered summaries in 16+ languages.",
-    "action": {
-        "default_popup": "index.html",
-        "default_icon": {
-            "16": "favicon.svg",
-            "48": "favicon.svg",
-            "128": "favicon.svg"
-        }
-    },
+    "description": "Capture screen areas and get AI-powered summaries.",
     "permissions": [
         "activeTab",
-        "storage",
-        "scripting"
+        "scripting",
+        "storage"
     ],
-    "host_permissions": [
-        "http://localhost:8000/*",
-        "https://api.deepseek.com/*",
-        "https://api.groq.com/*"
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "SnapLearn AI"
+    },
+    "background": {
+        "service_worker": "service-worker.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "assets/content.css"
+            ]
+        }
     ],
-    "icons": {
-        "16": "favicon.svg",
-        "48": "favicon.svg",
-        "128": "favicon.svg"
-    }
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "assets/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
 }

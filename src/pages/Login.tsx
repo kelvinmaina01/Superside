@@ -2,13 +2,73 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowLeft, Loader2 } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SupersideLogo from "@/components/SupersideLogo";
+import { authService } from "@/services/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState(""); // Simplified name handling
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      if (isSignUp) {
+        // Use name as username, fallback to email part if empty (though UI has input)
+        const username = name || email.split('@')[0];
+        await authService.register(email, password, password, username);
+        toast({
+          title: "Account created!",
+          description: "You have successfully signed up. Logging in...",
+        });
+        // Auto login after signup? Or just let them login.
+        // Let's assume register logs them in or returns token
+        navigate('/dashboard');
+      } else {
+        await authService.login(email, password);
+        toast({
+          title: "Welcome back!",
+          description: "Successfully logged in.",
+        });
+        navigate('/dashboard');
+      }
+    } catch (error: any) {
+      console.error("Auth error:", error);
+      toast({
+        title: isSignUp ? "Sign up failed" : "Login failed",
+        description: error.response?.data?.detail || error.response?.data?.non_field_errors?.[0] || "An error occurred. Please try again.",
+        variant: "destructive",
+      });
+
+      // Handle rate limiting specifically
+      if (error.response?.status === 429) {
+        toast({
+          title: "Too many requests",
+          description: "You are doing that too often. Please wait a minute.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGithubLogin = () => {
+    // Direct to GitHub OAuth URL
+    const GITHUB_CLIENT_ID = "Ov23liKTjaU0BS7QWrKE";
+    const REDIRECT_URI = "http://localhost:8080/login/oauth2/code/github";
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user`;
+  };
 
   return (
     <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
@@ -17,7 +77,6 @@ const Login = () => {
           <ArrowLeft className="w-4 h-4" />
           Back to home
         </Link>
-
         <Card className="border-0 shadow-xl">
           <CardHeader className="text-center">
             <div className="w-12 h-12 mx-auto mb-4">
@@ -34,7 +93,7 @@ const Login = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="w-full gap-2">
+              <Button variant="outline" className="w-full gap-2" disabled={loading}>
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
@@ -55,7 +114,7 @@ const Login = () => {
                 </svg>
                 Google
               </Button>
-              <Button variant="outline" className="w-full gap-2">
+              <Button variant="outline" className="w-full gap-2" onClick={handleGithubLogin} disabled={loading}>
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.61-4.041-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.22 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
@@ -76,32 +135,34 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
               {isSignUp && (
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" placeholder="John Doe" />
+                  <Input id="name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} disabled={loading} />
                 </div>
               )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="you@example.com" />
+                <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={loading} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" placeholder="••••••••" />
+                <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={loading} />
               </div>
-            </div>
 
-            <Button className="w-full">
-              {isSignUp ? "Create Account" : "Sign In"}
-            </Button>
+              <Button className="w-full" type="submit" disabled={loading}>
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {isSignUp ? "Create Account" : "Sign In"}
+              </Button>
+            </form>
 
             <p className="text-center text-sm text-muted-foreground">
               {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
               <button
                 onClick={() => setIsSignUp(!isSignUp)}
                 className="text-primary hover:underline font-medium"
+                type="button"
               >
                 {isSignUp ? "Sign in" : "Sign up"}
               </button>

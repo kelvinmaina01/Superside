@@ -8,6 +8,9 @@ from .billing_service import BillingService
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
+from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
 import stripe
 
 class AIChatView(APIView):
@@ -67,6 +70,52 @@ class AIChatView(APIView):
             }
         }, status=status.HTTP_201_CREATED)
 
+class AnalyzeScreenshotView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def post(self, request):
+        """
+        Analyze uploaded screenshot.
+        Payload: { "image": "data:image/...", "language": "English", "mode": "fast", "prompt": "..." }
+        """
+        image = request.data.get('image')
+        language = request.data.get('language', 'English')
+        mode = request.data.get('mode', 'fast')
+        prompt = request.data.get('prompt')
+        
+        if not image:
+            return Response({"error": "Image is required"}, status=status.HTTP_400_BAD_REQUEST)
+            
+        # Get or create session
+        session = CaptureSession.objects.create(user=request.user)
+        
+        ai_service = AIService()
+        ai_response = ai_service.analyze_image(image, prompt, language=language, mode=mode)
+        
+        if "error" in ai_response:
+             return Response(ai_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # Save Interaction
+        interaction = AIInteraction.objects.create(
+            session=session,
+            prompt=prompt or "Analyze Screenshot",
+            answer=ai_response['answer'],
+            thought_process=ai_response.get('thought_process', ''),
+            mode=mode,
+            model_used=ai_response.get('model', 'unknown')
+        )
+        
+        # Increment usage
+        profile = request.user.profile
+        profile.screenshots_today += 1
+        profile.save()
+        
+        return Response({
+            "answer": ai_response['answer'],
+            "model": ai_response.get('model'),
+            "session_id": session.id
+        })
+
 class ProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -114,3 +163,22 @@ class StripeWebhookView(APIView):
         if BillingService.handle_webhook(payload, sig_header):
             return HttpResponse(status=200)
         return HttpResponse(status=400)
+
+class GitHubLogin(SocialLoginView):
+    adapter_class = GitHubOAuth2Adapter
+    callback_url = "http://localhost:8080/login/oauth2/code/github"
+    client_class = OAuth2Client
+
+class APIRootView(APIView):
+    permission_classes = [permissions.AllowAny]
+    def get(self, request):
+        return Response({
+            "status": "online",
+            "message": "SnapLearn AI Backend API is running.",
+            "version": "v1",
+            "endpoints": {
+                "auth": "/api/v1/auth/",
+                "github_auth": "/api/v1/auth/github/",
+                "registration": "/api/v1/auth/registration/",
+            }
+        })
