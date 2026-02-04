@@ -4,17 +4,50 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Camera, Zap, Brain, Aperture } from "lucide-react";
+import { Camera, Zap, Brain, Aperture, User, LogOut, CreditCard } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+interface UserProfile {
+    user: {
+        username: string;
+        email: string;
+    };
+    screenshots_today: number;
+    tier: string;
+}
 
 const Popup = () => {
     const [language, setLanguage] = useState("English");
     const [mode, setMode] = useState("fast");
+    const [user, setUser] = useState<UserProfile | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Load saved settings if any
-        chrome.storage?.sync.get(['language', 'mode'], (result) => {
+        // Load saved settings and auth token
+        chrome.storage?.sync.get(['language', 'mode', 'access_token'], async (result) => {
             if (result.language) setLanguage(result.language);
             if (result.mode) setMode(result.mode);
+
+            if (result.access_token) {
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/api/v1/profile/', {
+                        headers: {
+                            'Authorization': `Bearer ${result.access_token}`
+                        }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        setUser(data);
+                    } else {
+                        // Token might be invalid
+                        chrome.storage.sync.remove('access_token');
+                    }
+                } catch (error) {
+                    console.error("Failed to fetch profile", error);
+                }
+            }
+            setLoading(false);
         });
     }, []);
 
@@ -55,10 +88,61 @@ const Popup = () => {
         }
     };
 
+    const handleLogin = () => {
+        chrome.tabs.create({ url: 'http://localhost:8080/login' });
+    };
+
+    const handleLogout = () => {
+        chrome.storage?.sync.remove('access_token');
+        setUser(null);
+    };
+
     return (
         <div className="w-[350px] p-4 bg-background">
-            <Card className="border-0 shadow-none">
-                <CardHeader className="text-center pb-2">
+            <Card className="border-0 shadow-none relative">
+                {/* User Profile Dropdown */}
+                <div className="absolute top-0 right-0">
+                    {loading ? (
+                        <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+                    ) : user ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                    <Avatar className="h-8 w-8">
+                                        <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.user.username}`} alt={user.user.username} />
+                                        <AvatarFallback>{user.user.username.charAt(0).toUpperCase()}</AvatarFallback>
+                                    </Avatar>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56" align="end" forceMount>
+                                <DropdownMenuLabel className="font-normal">
+                                    <div className="flex flex-col space-y-1">
+                                        <p className="text-sm font-medium leading-none">{user.user.username}</p>
+                                        <p className="text-xs leading-none text-muted-foreground">
+                                            {user.user.email}
+                                        </p>
+                                    </div>
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => chrome.tabs.create({ url: 'http://localhost:8080/dashboard' })}>
+                                    <CreditCard className="mr-2 h-4 w-4" />
+                                    <span>Manage Credits</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-600">
+                                    <LogOut className="mr-2 h-4 w-4" />
+                                    <span>Sign out</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
+                        <Button variant="ghost" size="sm" onClick={handleLogin}>
+                            Sign In
+                        </Button>
+                    )}
+                </div>
+
+                <CardHeader className="text-center pb-2 pt-8">
                     <div className="mx-auto mb-2 text-primary">
                         <Aperture className="w-10 h-10 mx-auto" />
                     </div>
