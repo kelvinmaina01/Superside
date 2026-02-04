@@ -28,6 +28,13 @@ export default defineConfig(({ mode }) => ({
       },
       output: {
         entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return "assets/[name][extname]";
+          }
+          return "assets/[name]-[hash][extname]";
+        },
       },
     },
   },
