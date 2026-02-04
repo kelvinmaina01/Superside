@@ -26,7 +26,7 @@ const Popup = () => {
 
     useEffect(() => {
         // Load saved settings and auth token
-        chrome.storage?.sync.get(['language', 'mode', 'access_token'], async (result) => {
+        chrome.storage?.sync.get(['language', 'mode', 'access_token'], async (result: { language?: string; mode?: string; access_token?: string }) => {
             if (result.language) setLanguage(result.language);
             if (result.mode) setMode(result.mode);
 
@@ -53,38 +53,59 @@ const Popup = () => {
     }, []);
 
     const handleCapture = async () => {
-        // Save settings before capture
         chrome.storage?.sync.set({ language, mode });
 
         try {
             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-            if (tab?.id) {
-                // Check if we can inject scripting (simplified check by just trying)
-                if (tab.url?.startsWith("chrome://") || tab.url?.startsWith("edge://") || tab.url?.startsWith("about:")) {
-                    alert("Cannot capture functionality on this special page. Please try a normal website.");
-                    return;
-                }
+            if (!tab?.id) {
+                alert("No active tab found. Please try again.");
+                return;
+            }
 
+            // Check for restricted pages
+            const restrictedPatterns = [
+                'chrome://', 'edge://', 'about:', 'chrome-extension://',
+                'accounts.google.com', 'login.microsoftonline.com'
+            ];
+
+            const isRestricted = restrictedPatterns.some(pattern =>
+                tab.url?.includes(pattern)
+            );
+
+            if (isRestricted) {
+                alert("This page blocks extensions for security reasons. Please try on a different website.");
+                return;
+            }
+
+            // First, ensure the content script is loaded
+            try {
+                // Try to send message first
+                await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
+                window.close();
+            } catch (messageError) {
+                // If message fails, inject the script
+                console.log("Content script not found, injecting...");
+                await chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    files: ['content.js']
+                });
+
+                // Wait a bit for script to initialize
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                // Retry message
                 await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
                 window.close();
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Capture Error:", error);
-            // Fallback: Try injecting script if message failed (meaning it might not be there)
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-            if (tab?.id) {
-                try {
-                    await chrome.scripting.executeScript({
-                        target: { tabId: tab.id },
-                        files: ['content.js']
-                    });
-                    // Retry message
-                    await chrome.tabs.sendMessage(tab.id, { type: 'SHOW_OVERLAY' });
-                    window.close();
-                } catch (injectionError) {
-                    alert("Failed to start capture. Please refresh the page and try again.");
-                }
+            const errorMessage = error?.message || String(error);
+
+            if (errorMessage.includes('cannot be scripted')) {
+                alert("This page cannot be captured due to browser security restrictions. Please try a regular website.");
+            } else {
+                alert(`Failed to start capture: ${errorMessage}\n\nTry refreshing this page or navigating to a different website.`);
             }
         }
     };
