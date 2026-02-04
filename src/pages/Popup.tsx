@@ -4,9 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Camera, Zap, Brain, Aperture, User, LogOut, CreditCard } from "lucide-react";
+import { Camera, Zap, Brain, User, LogOut, CreditCard } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import SupersideLogo from "@/components/SupersideLogo";
 
 interface UserProfile {
     user: {
@@ -143,10 +144,10 @@ const Popup = () => {
                 </div>
 
                 <CardHeader className="text-center pb-2 pt-8">
-                    <div className="mx-auto mb-2 text-primary">
-                        <Aperture className="w-10 h-10 mx-auto" />
+                    <div className="mx-auto mb-2">
+                        <SupersideLogo className="w-10 h-10" />
                     </div>
-                    <CardTitle className="text-xl">SnapLearn AI</CardTitle>
+                    <CardTitle className="text-xl">Superside</CardTitle>
                     <CardDescription>Capture & Analyze</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">

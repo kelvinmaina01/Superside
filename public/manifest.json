@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "SnapLearn AI",
+    "name": "Superside",
     "version": "1.0.0",
     "description": "Capture screen areas and get AI-powered summaries.",
     "permissions": [
