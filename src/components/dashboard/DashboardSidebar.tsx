@@ -12,7 +12,8 @@ import {
     Compass,
     Workflow,
     FolderOpen,
-    Home
+    Home,
+    PanelLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -84,20 +85,19 @@ const DashboardSidebar = ({
                 isCollapsed ? "w-16" : "w-64"
             )}
         >
-            <Button
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                variant="outline"
-                size="icon"
-                className="absolute -right-3 top-6 h-6 w-6 rounded-full border shadow-sm z-50 hidden group-hover:flex items-center justify-center bg-background text-muted-foreground hover:text-foreground"
-            >
-                {isCollapsed ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
-            </Button>
-
-            <div className="p-4 flex items-center gap-3">
+            <div className="p-4 flex items-center justify-between gap-3">
                 <Link to="/" className="flex items-center gap-2 overflow-hidden">
                     <SupersideLogo className="w-8 h-8 flex-shrink-0" />
                     {!isCollapsed && <span className="font-bold text-lg whitespace-nowrap">Superside</span>}
                 </Link>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                >
+                    <PanelLeft className={cn("h-5 w-5 transition-transform", isCollapsed && "rotate-180")} />
+                </Button>
             </div>
 
             <div className="flex-1 px-2 py-4 space-y-2">
