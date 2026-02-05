@@ -7,13 +7,40 @@
     0% {
       transform: translateX(0);
     }
+
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-100%);
     }
   }
-  
+
+  @keyframes breathe {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(0.95);
+    }
+  }
+
+  .animate-breathe {
+    animation: breathe 3s ease-in-out infinite;
+  }
+
   .animate-marquee {
     animation: marquee 25s linear infinite;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(circle, hsl(var(--foreground)) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    opacity: 0.05;
+  }
+
+  .glass {
+    @apply bg-background/60 backdrop-blur-md border border-white/20;
   }
 }
 
